@@ -1,0 +1,63 @@
+# 
+# These are the environment variables supported by the script /tmp/file-random-fio-generic.sh
+#
+# NUM_THREADS:=16       Number of threads used during the run phase
+# PREP_THREADS:=16      Number of threads for teh prepartion and cleanup phase
+# BLOCK_SIZE:=4k        Block size for sysbench
+# TEST_MODE:=rndrw      Test type. Values are rndwr, rndrd, rndrw, seqwr, seqrewr, seqrd
+# RW_RATIO:=4           Define the read/write ratio. 4 is 80/20
+# RUN_TIME:=30          Run time in seconds
+# DATA_SIZE:=4g         Size of the dataset to use
+# FILE_NUM:=128         Number of files to create. Defaults to sysbench default
+# EXTRA_FLAGS:=direct   Extra flags to pass for IO
+# END_SLEEP:=0          Sleep time at the end to prevent STS restart to collect statistics
+# IO_MODE:=async        What mode to use. Default to libaio
+# FSYNC_FREQ:=0         How often to force fsync
+#
+# The default parameters chosen were designed to mimic FIO behavior for easy comparison
+#
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sysbench-sts
+spec: {}
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: sysbench
+  namespace: sysbench-sts
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sysbench-sts
+  template:
+    metadata:
+      labels:
+        app: sysbench-sts
+    spec:
+      containers:
+      - name: sysbench-file-4k-rrw
+        image: quay.io/vcppds7878/sysbench:bench64
+        command: ["sh"]
+        args:
+          - '-c'
+          - '/tmp/file-random-readwrite-fio-4k.sh;sleep 3600'
+        volumeMounts:
+        - name: tmp-store
+          mountPath: /tmp/data
+        env:
+          - name: NUM_THREADS
+            value: 8
+  volumeClaimTemplates:
+  - metadata:
+      name: tmp-store
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 150Gi
+      storageClassName: ocs-storagecluster-ceph-rbd
+
