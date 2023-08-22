@@ -14,8 +14,8 @@ that could easily stress the storage backend.
 
 Two versions of the container image are available from my personal Quay repository:
 
-- quay.io/vcppds7878/sysbench:original  Initial container image with only preset scripts. **DEPRECATED**
-- quay.io/vcppds7878/sysbench:bench64   Latest container image with both preset scripts and generic script
+- `quay.io/vcppds7878/sysbench:original`  Original version with preset scripts. **DEPRECATED**
+- `quay.io/vcppds7878/sysbench:bench64`   Latest version with preset and generic scripts
 
 Note that the `bench64` tag version uses CentOS Stream as a base and provides better security. Hence the
 deprecated `original` tag.
