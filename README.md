@@ -40,18 +40,18 @@ you with the ability to pass prepare and run time parameters easily.
 
 The followign variables can be leveraged. The value following `:=` indicates the default value.
 
-- NUM_THREADS:=16       Number of threads used during the run phase
-- PREP_THREADS:=16      Number of threads for the prepartion and cleanup phase
-- BLOCK_SIZE:=4k        Block size for `sysbench`
-- TEST_MODE:=rndrw      Test type. Values are `rndwr`, `rndrd`, `rndrw`, `seqwr`, `seqrewr`, `seqrd`
-- RW_RATIO:=4           Define the read/write ratio. 4 is 80/20
-- RUN_TIME:=30          Run time in seconds
-- DATA_SIZE:=4g         Size of the dataset to use. Use `{nn}[k,m,g,t]` to specify the size
-- FILE_NUM:=128         Number of files to create
-- EXTRA_FLAGS:=direct   Extra flags to pass for IO
-- END_SLEEP:=0          Sleep time at the end to prevent STS restart to collect statistics
-- IO_MODE:=async        What mode to use. Default to libaio
-- FSYNC_FREQ:=0         How often to force fsync
+- `NUM_THREADS:=16`       Number of threads used during the run phase
+- `PREP_THREADS:=16`      Number of threads for the prepartion and cleanup phase
+- `BLOCK_SIZE:=4k`        Block size for `sysbench`
+- `TEST_MODE:=rndrw`      Test type. Values are `rndwr`, `rndrd`, `rndrw`, `seqwr`, `seqrewr`, `seqrd`
+- `RW_RATIO:=4`           Define the read/write ratio. 4 is 80/20
+- `RUN_TIME:=30`          Run time in seconds
+- `DATA_SIZE:=4g`         Size of the dataset to use. Use `{nn}[k,m,g,t]` to specify the size
+- `FILE_NUM:=128`         Number of files to create
+- `EXTRA_FLAGS:=direct`   Extra flags to pass for IO
+- `END_SLEEP:=0`          Sleep time at the end to prevent STS restart to collect statistics
+- `IO_MODE:=async`        What mode to use. Default to libaio
+- `FSYNC_FREQ:=0`         How often to force fsync
  
 The default parameters chosen were designed to mimic FIO behavior for easy comparison.
 
