@@ -4,9 +4,9 @@
 
 The idea behind this project was to setup a quick benchmarking tool not using the FIO standard.
 It was also to make available a base that could be customized by others to support leveraging
-the other sysbench testing modes for CPU, RAM and otehr things `sysbench` supports.
+the other `sysbench` testing modes for CPU, RAM and other things it supports.
 
-Anotehr goal for the project was to easily determine if a `rook-ceph` of `Red Hat OpenShift Data Foundation`
+Another goal for the project was to easily determine if a `rook-ceph` of `Red Hat OpenShift Data Foundation`
 environment could produce the desired throughout or bandwidth after deployment with parameters
 that could easily stress the storage backend.
 
@@ -14,15 +14,16 @@ that could easily stress the storage backend.
 
 Two versions of the container image are available from my personal Quay repository:
 
-. quay.io/vcppds7878/sysbench:original  Initial container image with only preset scripts. **DEPRECATED**
-. quay.io/vcppds7878/sysbench:variable  Latest container image with both preset scripts and generic script
+- quay.io/vcppds7878/sysbench:original  Initial container image with only preset scripts. **DEPRECATED**
+- quay.io/vcppds7878/sysbench:bench64   Latest container image with both preset scripts and generic script
 
-Note that the `variable` tag version uses CentOS Stream as a base and provides better security.
+Note that the `bench64` tag version uses CentOS Stream as a base and provides better security. Hence the
+deprecated `original` tag.
 
 ## Variable version
 
 The file `/tmp/file-generic.sh` has been preloaded into the container image to provide
-you with the ability to pass prep and run time parameters easily.
+you with the ability to pass prepare and run time parameters easily.
 
 ```
       containers:
@@ -37,16 +38,16 @@ you with the ability to pass prep and run time parameters easily.
             value: "{DESIRED_VALUE}"
 ```
 
-The followign variables can be leveraged.
+The followign variables can be leveraged. The value following `:=` indicates the default value.
 
 - NUM_THREADS:=16       Number of threads used during the run phase
-- PREP_THREADS:=16      Number of threads for teh prepartion and cleanup phase
-- BLOCK_SIZE:=4k        Block size for sysbench
-- TEST_MODE:=rndrw      Test type. Values are rndwr, rndrd, rndrw, seqwr, seqrewr, seqrd
+- PREP_THREADS:=16      Number of threads for the prepartion and cleanup phase
+- BLOCK_SIZE:=4k        Block size for `sysbench`
+- TEST_MODE:=rndrw      Test type. Values are `rndwr`, `rndrd`, `rndrw`, `seqwr`, `seqrewr`, `seqrd`
 - RW_RATIO:=4           Define the read/write ratio. 4 is 80/20
 - RUN_TIME:=30          Run time in seconds
-- DATA_SIZE:=4g         Size of the dataset to use
-- FILE_NUM:=128         Number of files to create. Defaults to sysbench default
+- DATA_SIZE:=4g         Size of the dataset to use. Use `{nn}[k,m,g,t]` to specify the size
+- FILE_NUM:=128         Number of files to create
 - EXTRA_FLAGS:=direct   Extra flags to pass for IO
 - END_SLEEP:=0          Sleep time at the end to prevent STS restart to collect statistics
 - IO_MODE:=async        What mode to use. Default to libaio
@@ -133,5 +134,5 @@ or Red Hat OpenShift environment.
 - RUN_TIME to have a meaningfull run time
 
 When running with a stateful set you can collect the statistics of all the pods after they
-reach a completeion status using file collect-sysbench-sts.sh
+reach a completeion status using file `collect-sysbench-sts.sh`.
 
