@@ -120,7 +120,7 @@ This repo contains a `yaml` file for each preset version for easy consumption.
 - sysbench-rwx-swrite-4m.yaml
 - sysbench-sts-variable.yaml
 
-[!NOTE] Feel free to change the storage class in each `yaml` file to match your Kubernetes or
+> [!NOTE] Feel free to change the storage class in each `yaml` file to match your Kubernetes or
 OpenShift configuration.
 
 ## Stateful Set configuration
