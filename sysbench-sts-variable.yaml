@@ -41,10 +41,16 @@ spec:
       containers:
       - name: sysbench-file-4k-rrw
         image: quay.io/vcppds7878/sysbench:bench64
+        imagePullPolicy: Always
         command: ["sh"]
         args:
           - '-c'
-          - '/tmp/file-random-readwrite-fio-4k.sh;sleep 3600'
+          - '/tmp/file-generic.sh'
+        env:
+        - name: END_SLEEP
+          value: "1800"
+        - name: RUN_TIME
+          value: "300"
         volumeMounts:
         - name: tmp-store
           mountPath: /tmp/data

@@ -31,6 +31,7 @@ spec:
       containers:
       - name: sysbench-file-generic
         image: quay.io/vcppds7878/sysbench:bench64
+        imagePullPolicy: Always
         command: ["sh"]
         args:
           - '-c'

@@ -128,6 +128,10 @@ OpenShift configuration.
 This repo contains file `sysbench-sts-variable.yaml` for starting the test via a stateful set in a Kubernetes
 or Red Hat OpenShift environment.
 
+> **NOTE:** The STS template sets the following environment variables by default:
+- END_SLEEP to be able to collect stats before the job restarts
+- RUN_TIME to have a meaningfull run time
+
 When running with a stateful set you can collect the statistics of all the pods after they
 reach a completeion status using file collect-sysbench-sts.sh
 
